@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental:{appDir: true},
 }
 
-module.exports = nextConfig
+const tm = require('next-transpile-modules')([
+  'react-use',
+])
+
+const plugins = [tm]
+
+module.exports = plugins.reduce((config, plugin) => plugin(config), nextConfig)
